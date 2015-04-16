@@ -12,5 +12,7 @@
 !/log/.keep
 /tmp
 
-.gems
-.env
+/.gems
+/.env
+/public/assets
+/public/system
