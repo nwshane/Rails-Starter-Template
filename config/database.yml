@@ -1,8 +1,7 @@
 default: &default
-    adapter:  mysql2
-    encoding: utf8
+    adapter: postgresql
+    encoding: unicode
     host: localhost
-    port: 3306
     reconnect: true
     pool: 5
 
