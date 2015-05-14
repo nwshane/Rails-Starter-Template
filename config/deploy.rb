@@ -12,7 +12,7 @@ set :full_current_path, lambda { "#{deploy_to}/#{current_path}" }
 set :full_shared_path, lambda { "#{deploy_to}/#{shared_path}" }
 set :full_tmp_path, lambda { "#{deploy_to}/tmp" }
 set :branch, 'master'
-set :initial_directories, ["#{full_shared_path}/log", "#{full_shared_path}/config", "#{full_shared_path}/public/system", "#{full_tmp_path}/puma/sockets", "#{full_tmp_path}/assets"]
+set :initial_directories, lambda { ["#{full_shared_path}/log", "#{full_shared_path}/config", "#{full_shared_path}/public/system", "#{full_tmp_path}/puma/sockets", "#{full_tmp_path}/assets"] }
 set :shared_paths, %w[.env log public/system]
 set :forward_agent, true
 set :rails_env, lambda { "#{stage}" }
@@ -155,6 +155,14 @@ namespace :puma do
       system %[echo ""]
       system %[echo "Restarting all puma jungle applications"]
       system %[#{sudo_ssh_cmd(task)} 'sudo /etc/init.d/puma restart']
+      system %[echo ""]
+    end
+
+    desc "Lists the apps in the puma jungle (outputs /etc/puma.conf). Requires sudo_user option."
+    task :list do |task|
+      system %[echo ""]
+      system %[echo "Listing all apps in puma jungle"]
+      system %[#{sudo_ssh_cmd(task)} 'sudo cat /etc/puma.conf']
       system %[echo ""]
     end
   end
