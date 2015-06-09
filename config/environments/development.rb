@@ -38,8 +38,16 @@ Rails.application.configure do
 
   # Rake precompile task puts precompiled assets in this directory in the public folder.
   # Necessary for custom mina assets deploy setup.
-  config.assets.prefix = "/assets"
+  config.assets.prefix = '/assets'
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+  end
 end
